@@ -12,7 +12,7 @@ function getPosts() {
             var newElement = document.createElement("li");
             let edit = `<a href='#' data-postid='${post.id}' data-postbody='${post.body}' data-postauthor='${post.author}' onclick='editpost(event)'>edit</a>`;
             let del = `<a href='#' data-postid='${post.id}' onclick='delpost(event)'>delete</a>`;
-            newElement.innerHTML = `${post.id} body: ${post.body} author: ${post.author} ${edit} | ${del}`;
+            newElement.innerHTML = `${post.id} ${post.body} <br> Author: ${post.author} ${edit} | ${del}`;
             list.appendChild(newElement);
         });
     });
