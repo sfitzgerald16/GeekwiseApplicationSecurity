@@ -1,0 +1,104 @@
+{
+	"variables": [],
+	"info": {
+		"name": "MyBlogApp",
+		"_postman_id": "ac104230-9eae-eb5a-6170-92e14aba4889",
+		"description": "Application Security basic insecure app example.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/post/1",
+			"request": {
+				"url": "http://localhost:3000/api/post/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get a single post"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/post/",
+			"request": {
+				"url": "http://localhost:3000/api/post",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get all posts"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/post/",
+			"request": {
+				"url": "http://localhost:3000/api/post",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "body",
+							"value": "Blah blah blah",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "author",
+							"value": "A. Nonymous",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Create a new post entry"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/post/1",
+			"request": {
+				"url": "http://localhost:3000/api/post/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author",
+							"value": "Ann N. Amous",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Update a post entry"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/post/1",
+			"request": {
+				"url": "http://localhost:3000/api/post/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Delete a post entry"
+			},
+			"response": []
+		}
+	]
+}
