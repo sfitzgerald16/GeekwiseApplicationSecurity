@@ -3,38 +3,36 @@ let _baseUrl = "http://localhost";
 let _port = "3000";
 
 function getCars() {
-    let list = document.getElementById("car-list");
-    list.innerHTML = "";
+
     clearEdit();
 
     jQuery.get(`${_baseUrl}:${_port}/api/car`, function(data) {
-        data.data.forEach((car) => {
-            var newElement = document.createElement("li");
-            let edit = `<a href='#' data-carid='${car.id}' data-carmake='${car.make}' data-carmodel='${car.model}' onclick='editCar(event)'>edit</a>`;
-            let del = `<a href='#' data-carid='${car.id}' onclick='delCar(event)'>delete</a>`;
-            newElement.innerHTML = `${car.id} Make: ${car.make} Model: ${car.model} ${edit} | ${del}`;
-            list.appendChild(newElement);
-        });
+        generateList(data);
+    });
+}
+
+function generateList(data) {
+    let list = document.getElementById("car-list");
+    list.innerHTML = "";
+    data.data.forEach((car) => {
+        var newElement = document.createElement("li");
+        let edit = `<a href='#' data-carid='${car.id}' data-carmake='${car.make}' data-carmodel='${car.model}' data-caryear='${car.year}' onclick='editCar(event)'>edit</a>`;
+        let del = `<a href='#' data-carid='${car.id}' onclick='delCar(event)'>delete</a>`;
+        let year = (car.year === null) ? 'Unknown' : car.year;
+        newElement.innerHTML = `${car.id} Make: ${car.make} Model: ${car.model} Year: ${year} ${edit} | ${del}`;
+        list.appendChild(newElement);
     });
 }
 
 function searchCars(e) {
     e.preventDefault();
     console.log('search')
-    let list = document.getElementById("car-list");
-    list.innerHTML = "";
     let searchVal = $('#search').val();
     console.log(searchVal)
     clearEdit();
 
     jQuery.post(`${_baseUrl}:${_port}/api/car/search`, { search: searchVal }, function(data) {
-        data.data.forEach((car) => {
-            var newElement = document.createElement("li");
-            let edit = `<a href='#' data-carid='${car.id}' data-carmake='${car.make}' data-carmodel='${car.model}' data-caryear='${car.year}' onclick='editCar(event)'>edit</a>`;
-            let del = `<a href='#' data-carid='${car.id}' onclick='delCar(event)'>delete</a>`;
-            newElement.innerHTML = `${car.id} Make: ${car.make} Model: ${car.model} Year: ${car.year} ${edit} | ${del}`;
-            list.appendChild(newElement);
-        });
+        generateList(data);
     });
 }
 
@@ -49,8 +47,8 @@ function addCar(e) {
     let modelVal = model.val();
     let yearVal = year.val();
 
-    if(makeVal == "" || modelVal == "" || yearVal == "") {
-        alert('Make, Model and Year cannot be blank');
+    if (makeVal == "" || modelVal == "" || yearVal == "") {
+        alert('Make, Model, and Year cannot be blank');
         return;
     }
 
@@ -62,7 +60,7 @@ function addCar(e) {
         $.ajax({
                 method: "PUT",
                 url: `${_baseUrl}:${_port}/api/car/${carid.val()}`,
-                data: { make: make.val(), model: model.val(), year: year.val() }
+                data: { make: makeVal, model: modelVal, year: yearVal }
             })
             .done(function(msg) {
                 getCars();
@@ -98,6 +96,7 @@ function editCar(e) {
     $("#car-submit").val('Edit Car');
     model.val(modelVal);
     make.val(makeVal);
+    year.val(yearVal);
 }
 
 function delCar(e) {
@@ -120,10 +119,13 @@ function clearEdit() {
     let make = $("#make");
     let model = $("#model");
     let carid = $("#carid");
+    let year = $("#year");
+
     carid.val(0);
     $("#car-submit").val('Add Car');
     model.val("");
     make.val("");
+    year.val("");
 }
 
 
