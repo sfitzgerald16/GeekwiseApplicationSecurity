@@ -21,7 +21,7 @@ function getPosts() {
 function searchposts(e) {
     e.preventDefault();
     console.log('search')
-    let list = document.getElementById("post");
+    let list = document.getElementById("post-list");
     list.innerHTML = "";
     let searchVal = $('#search').val();
     console.log(searchVal)
@@ -127,6 +127,6 @@ $(function() {
     _baseUrl = `http://${window.location.hostname}`;
     getPosts();
     $("#add-post").on('submit', addpost);
-    $("#search-post").on('submit', searchposts);
+    $("#search-posts").on('submit', searchposts);
     $("#post-showall").on('click', getPosts);
 });

@@ -55,8 +55,8 @@ class PostDb {
     }
 
     static search(param) {
-        //let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND text ILIKE '%${param}%' OR author ILIKE '%${param}%'`;
-        let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND text = '${param}'`;
+        let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND body ILIKE '%${param}%' OR author ILIKE '%${param}%'`;
+        // let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND text = '${param}'`;
         console.log(query);
         return db.any(query);
     }
