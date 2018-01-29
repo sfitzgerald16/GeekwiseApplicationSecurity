@@ -58,12 +58,12 @@ class CarDb {
 
         let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND `;
         if (isNaN(param)) {
-            query += `make ILIKE '%${param}%' OR model ILIKE '%${param}%'`;
+            query += `make ILIKE $1 OR model ILIKE $2`;
         } else {
-            query += `year = ${param}`;
+            query += `year = $3`;
         }
         console.log(query);
-        return db.any(query);
+        return db.any(query, [param, param, param]);
     }
 }
 
