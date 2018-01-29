@@ -13,6 +13,8 @@ class PostController {
         router.route('/post')
             .get(this.getAll)
             .post(this.insertOne);
+        router.route('/post:')
+            .get(this.getAll)
     }
 
     async getOne(req, res, next) {
@@ -93,6 +95,21 @@ class PostController {
     async getAll(req, res, next) {
         try {
             const data = await PostDb.getAll();
+            if (data) {
+                let posts = data.map(p => { return new Post(p) });
+                return Common.resultOk(res, posts);
+            } else {
+                return Common.resultNotFound(res);
+            }
+        } catch (e) {
+            return Common.resultErr(res, e.message);
+        }
+    }
+
+    async sortAll(req, res, next) {
+        try {
+            let order = req.query.order
+            const data = await PostDb.sortAll();
             if (data) {
                 let posts = data.map(p => { return new Post(p) });
                 return Common.resultOk(res, posts);

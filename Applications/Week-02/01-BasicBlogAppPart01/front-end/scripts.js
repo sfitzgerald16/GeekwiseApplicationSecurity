@@ -10,6 +10,16 @@ function getPosts() {
     });
 }
 
+function sortPosts() {
+    clearEdit();
+
+    let orderVal = $('#sort').val();
+    console.log(orderVal)
+    jQuery.get(`${_baseUrl}:${_port}/api/post`, { order: orderVal }, function (data) {
+        generatePosts(data);
+    });
+}
+
 function generatePosts(data) {
     let list = document.getElementById("post-list");
     list.innerHTML = "";
@@ -22,8 +32,7 @@ function generatePosts(data) {
             `<div class="col-sm-12"><span class='post-title'>${post.title}</span>&nbsp; ${edit} | ${del}</div>
             <div class="col-sm-12"><textarea class="form-input" readonly>${post.post}</textarea></div>
             <div class="col-sm-12"><p>Author: ${post.author} Created: ${post.created_at} Last Edited: ${post.updated_at}</p></div>
-        <hr>
-        `;
+        <hr>`;
 
         list.appendChild(newPostDiv);
     });
@@ -140,4 +149,5 @@ $(function() {
     $("#add-post").on('submit', addPost);
     $("#search-post").on('submit', searchPosts);
     $("#post-showall").on('click', getPosts);
+    $("sort-post").on('click', sortPosts);
 });

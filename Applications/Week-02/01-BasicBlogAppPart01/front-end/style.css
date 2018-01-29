@@ -2,3 +2,7 @@ textarea {
     width: 50%;
     height: 100px;
 }
+
+.form-inline {
+    display: inline-block;
+}
