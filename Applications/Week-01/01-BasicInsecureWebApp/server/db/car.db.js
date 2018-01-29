@@ -55,14 +55,13 @@ class CarDb {
     }
 
     static search(param) {
-        /*let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND `;
+
+        let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND `;
         if (isNaN(param)) {
             query += `make ILIKE '%${param}%' OR model ILIKE '%${param}%'`;
         } else {
             query += `year = ${param}`;
-        }*/
-
-        let query = `SELECT * FROM ${TABLENAME} WHERE is_deleted=false AND make = '${param}'`;
+        }
         console.log(query);
         return db.any(query);
     }
