@@ -16,6 +16,12 @@ class PostDb {
         return db.any(query);
     }
 
+    static sortAll(boolean, sortOrder) {
+        let query = `SELECT * FROM posts WHERE is_deleted=false ORDER BY title ${sortOrder ? "ASC" : "DESC"}`;
+        console.log(query);
+        return db.any(query);
+    }
+
     static updateOne(id, data) {
         id = parseInt(id);
         let params = [];
@@ -38,13 +44,13 @@ class PostDb {
     static insertOne(data) {
         let params = [];
         let values = [];
-        Object.keys(data).forEach((key) => {
-            params.push(key);
-            values.push(`'${data[key]}'`);
-        });
-        let query = `INSERT into ${TABLENAME} (${params.join()}) VALUES(${values.join()}) RETURNING *`;
+        // Object.keys(data).forEach((key) => {
+        //     params.push(key);
+        //     values.push(`'${data[key]}'`);
+        // });
+        let query = `INSERT into posts (title, post, author) VALUES($1, $2, $3) RETURNING *`;
         console.log(query);
-        return db.one(query);
+        return db.one(query, [data['title'], data['post'], data['author']]);
     }
 
     static getTotal() {
