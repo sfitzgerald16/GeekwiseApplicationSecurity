@@ -43,4 +43,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.listen(app.get("port"), function () {
+  console.log('\n' + '**********************************');
+  console.log('REST API listening on port ' + app.get("port"));
+  console.log('**********************************' + '\n');
+});
+
 module.exports = app;
